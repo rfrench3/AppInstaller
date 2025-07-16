@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=App Installer
 Comment=Install AppImages and binaries
-Exec=appinstaller
-Icon=io.github.rfrench3.appinstaller
+Exec=AppInstaller
+Icon=io.github.rfrench3.AppInstaller
 Terminal=false
 Type=Application
 Categories=Utility;

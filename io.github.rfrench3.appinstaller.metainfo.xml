@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.rfrench3.AppInstaller</id>
+
+  <!-- Make sure the information in this xml matches your app! -->
+
+  <name translate="no">App Installer</name>
+  <summary>Cleanly install binaries</summary>
+  <icon type="stock">io.github.rfrench3.AppInstaller</icon>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+
+  <developer id="io.github.rfrench3">
+    <name translate="no">Robert French</name>
+  </developer>
+
+  <description>
+    <p>
+      
+    </p>
+  </description>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#c875ff</color> <!-- These colors show up as a background in stores like Discover -->
+    <color type="primary" scheme_preference="dark">#380066</color>
+  </branding>
+
+  <content_rating type="oars-1.1" /> <!-- ensure the content rating is accurate -->
+
+  <url type="bugtracker">https://github.com/rfrench3/AppInstaller/issues</url> <!-- add various relevant URLs -->
+  <url type="vcs-browser">https://github.com/rfrench3/AppInstaller</url>
+
+  <launchable type="desktop-id">io.github.rfrench3.AppInstaller.desktop</launchable>
+
+  <releases>
+    <release version="0.1" date="2025-06-23">
+      <description>
+        Description of the update features.
+      </description>
+    </release>
+  </releases>
+</component>
