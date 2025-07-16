@@ -1,11 +1,29 @@
 #!/usr/bin/env python3
 
 """
-PySide6 Flatpak Template
+App Installer
 
 Created in 2025 by rfrench3 (TealMango) - https://github.com/rfrench3
 
 Licensed under the GNU GPLv3 only. See LICENSE file in the project root for full license information.
+"""
+
+
+
+"""
+binaries logic:
+- ask user to open binary folder or binary zip/tar
+- unzip if necessary
+- open that folder in the app
+- tell the user to select:
+  - the executable
+  - the icon
+  - more
+
+from there, make/install:
+- the icon
+- the .desktop file
+- more
 """
 
 
@@ -16,7 +34,7 @@ import os
 # locating other application files
 sys.path.insert(0, "/app/share/pyside6apptemplate") # flatpak path
 from program_file_locator import DATA_DIR
-from widget_manager import app_icon, load_widget, load_message_box
+from widget_manager import load_widget, load_message_box
 
 #PySide6, Qt Designer UI files
 from PySide6.QtWidgets import QApplication, QPushButton #Import widgets here as needed
@@ -48,8 +66,7 @@ app = QApplication([])
 
 window_main = load_widget(
     ui_main,
-    "Application Main Window",
-    app_icon # defaults to app_icon if not specified, this only needs to be set for custom icons
+    "App Installer",
     )
 logic = MainWindow(window_main)
 
