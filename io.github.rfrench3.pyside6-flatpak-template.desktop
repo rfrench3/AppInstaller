@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=pyside6-flatpak-template
-Comment=template for a pyside6 flatpak
-Exec=pyside6apptemplate
-Icon=io.github.rfrench3.pyside6-flatpak-template
+Name=App Installer
+Comment=Install AppImages and binaries
+Exec=appinstaller
+Icon=io.github.rfrench3.appinstaller
 Terminal=false
 Type=Application
 Categories=Utility;
