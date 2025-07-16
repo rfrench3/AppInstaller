@@ -49,17 +49,27 @@ class MainWindow():
         self.window = window
 
         # connect ui elements to code
-        self.button = self.window.findChild(QPushButton,"pushButton")
+        self.select_file = self.window.findChild(QPushButton,"select_file")
+        self.select_folder = self.window.findChild(QPushButton,"select_folder")
 
         # Connect actions to slots or functions
-        self.button.clicked.connect(self.button_clicked)
+        self.select_file.clicked.connect(self.method_select_file)
+        self.select_folder.clicked.connect(self.method_select_folder)
         
-    def button_clicked(self):
+    def method_select_file(self):
         load_message_box(
             self.window,
             "message box title!",
-            "message box text!"
+            "TODO: file selector desktop portal"
         )
+
+    def method_select_folder(self):
+        load_message_box(
+            self.window,
+            "message box title!",
+            "TODO: folder selector desktop portal"
+        )
+
 
 # Logic that loads the main window
 app = QApplication([])
