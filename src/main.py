@@ -30,6 +30,7 @@ from there, make/install:
 
 import sys
 import os
+import shutil
 
 # locating other application files
 sys.path.insert(0, "/app/share/pyside6apptemplate") # flatpak path
@@ -37,12 +38,20 @@ from program_file_locator import DATA_DIR
 from widget_manager import load_widget, load_message_box
 
 #PySide6, Qt Designer UI files
-from PySide6.QtWidgets import QApplication, QPushButton #Import widgets here as needed
+from PySide6.QtWidgets import (
+    QApplication, QPushButton, QFileDialog
+    ) #Import widgets here as needed
+
 
 # Edit the .ui file using Qt Designer
 ui_main = os.path.join(DATA_DIR, "main_window.ui")
 
-# logic for the main windowscopebuddy-guiscopebuddy-gui
+
+
+# path to application folder. TODO: let the user change this
+apps_folder = os.path.expanduser("~/applications")
+
+os.makedirs(apps_folder, exist_ok=True)
 
 class MainWindow():
     def __init__(self, window): 
@@ -57,18 +66,21 @@ class MainWindow():
         self.select_folder.clicked.connect(self.method_select_folder)
         
     def method_select_file(self):
-        load_message_box(
-            self.window,
-            "message box title!",
-            "TODO: file selector desktop portal"
-        )
+        """TODO:IMPLEMENT! If a recognized zip/tar/etc file is chosen, 
+        unzip it and proceed with logic of folder method. 
+        Much later, implement native/distrobox support for distro packages."""
+
+        file_path, _ = QFileDialog.getOpenFileName(self.window, "NOT YET IMPLEMENTED!")
+
+        return file_path
 
     def method_select_folder(self):
-        load_message_box(
-            self.window,
-            "message box title!",
-            "TODO: folder selector desktop portal"
-        )
+        folder_path = QFileDialog.getExistingDirectory(self.window, "Select Application Folder")
+
+        # move folder to user's chosen applications directory
+        
+
+        return folder_path
 
 
 # Logic that loads the main window
@@ -76,7 +88,7 @@ app = QApplication([])
 
 window_main = load_widget(
     ui_main,
-    "App Installer",
+    "App Installer"
     )
 logic = MainWindow(window_main)
 
