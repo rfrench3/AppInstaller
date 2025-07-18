@@ -18,6 +18,7 @@ binaries logic:
 - tell the user to select:
   - the executable
   - the icon
+  - app name (autofill with directory name)
   - more
 
 from there, make/install:
@@ -46,6 +47,7 @@ from PySide6.QtGui import (QAction)
 
 # Edit the .ui file using Qt Designer
 ui_main = os.path.join(DATA_DIR, "main_window.ui")
+ui_installer = os.path.join(DATA_DIR, "installer.ui")
 
 
 
@@ -75,6 +77,30 @@ class MainWindow():
         Much later, implement native/distrobox support for distro packages."""
 
         original_path, _ = QFileDialog.getOpenFileName(self.window, "NOT YET IMPLEMENTED!")
+        if not original_path:
+            return  # no file selected
+
+        filename = os.path.basename(original_path).lower()
+        print(f"Selected file name: {filename}")
+
+        if filename.endswith(".zip"):
+            print("Zip archive selected. Extraction logic to be implemented.")
+            # TODO: implement zip extraction
+        elif (
+            filename.endswith(".tar") or
+            filename.endswith(".tar.gz") or
+            filename.endswith(".tgz") or
+            filename.endswith(".tar.bz2") or
+            filename.endswith(".tbz2") or
+            filename.endswith(".tar.xz") or
+            filename.endswith(".txz")
+        ):
+            print("Tar archive selected. Extraction logic to be implemented.")
+            # TODO: implement tar extraction
+        else:
+            print("Unsupported file type or not an archive.")
+            return
+
         file_name = os.path.basename(original_path)
         dest_path = os.path.join(apps_dir, file_name)
 
