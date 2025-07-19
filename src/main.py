@@ -34,9 +34,10 @@ import os
 import shutil
 
 # locating other application files
-sys.path.insert(0, "/app/share/pyside6apptemplate") # flatpak path
+sys.path.insert(0, "/app/share/appinstaller") # flatpak path
 from program_file_locator import DATA_DIR
 from widget_manager import load_widget, load_message_box
+import appman
 
 #PySide6, Qt Designer UI files
 from PySide6.QtWidgets import (
@@ -79,6 +80,8 @@ class MainWindow():
         original_path, _ = QFileDialog.getOpenFileName(self.window, "NOT YET IMPLEMENTED!")
         if not original_path:
             return  # no file selected
+
+
 
         filename = os.path.basename(original_path).lower()
         print(f"Selected file name: {filename}")
