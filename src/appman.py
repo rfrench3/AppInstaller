@@ -12,37 +12,22 @@ import argparse, os
 parser = argparse.ArgumentParser(description="AppInstaller command line tool")
 subparsers = parser.add_subparsers(dest="command")
 
-# List subcommand
-list_parser = subparsers.add_parser("list", help="List installed apps")
+# Subcommands
+list_parser = subparsers.add_parser("list", help="List installed apps", add_help=False)
 
-# Install subcommand
-install_parser = subparsers.add_parser("install", help="Install an app")
+install_parser = subparsers.add_parser("install", help="Install an app", add_help=False)
 install_parser.add_argument("--executable", required=True, help="Required, path to the executable file.")
 install_parser.add_argument("--name", required=False, help="Not required, name of the file. Defaults to the executable.")
 install_parser.add_argument("--icon", required=False, help="Not required, path to the icon file.")
 install_parser.add_argument("--description", required=False, help="Not required, description of the app.")
 install_parser.add_argument("--use-terminal", action="store_true", help="If set, the app will run in a terminal.")
 
+uninstall_parser = subparsers.add_parser("uninstall", help="Uninstall an app", add_help=False)
+uninstall_parser.add_argument("--id", required=True, help="Required, ID of the app as shown by appman list.")
+
+
 args = parser.parse_args()
 
-# Define supported arguments for each command
-COMMAND_ARGUMENTS = {
-    'list': [],  # list command supports no arguments
-    'install': ['executable', 'name', 'icon', 'description', 'use-terminal']
-}
-
-# Validate that only supported arguments are used with each command
-if args.command in COMMAND_ARGUMENTS:
-    supported_args = COMMAND_ARGUMENTS[args.command]
-    all_possible_args = ['executable', 'name', 'icon', 'description', 'use-terminal']
-    
-    for arg in all_possible_args:
-        if arg not in supported_args and hasattr(args, arg):
-            arg_value = getattr(args, arg)
-            # Skip if argument has default value (None for strings, False for booleans)
-            if arg_value is not None and not (arg == 'use-terminal' and arg_value is False):
-                parser.error(f"argument --{arg}: not allowed with '{args.command}' command")
-    
 
 
 def install_app(executable:str,name:str,icon:str="",description:str="",terminal:bool=False):
@@ -98,7 +83,7 @@ if args.command == "install":
         name=args.name or "",
         icon=args.icon or "",
         description=args.description or "",
-        terminal=args.use-terminal
+        terminal=args.use_terminal
     )
 elif args.command == "list":
     list_apps()
