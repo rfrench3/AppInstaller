@@ -28,20 +28,20 @@ args = parser.parse_args()
 # Define supported arguments for each command
 COMMAND_ARGUMENTS = {
     'list': [],  # list command supports no arguments
-    'install': ['executable', 'name', 'icon', 'description', 'use_terminal']
+    'install': ['executable', 'name', 'icon', 'description', 'use-terminal']
 }
 
 # Validate that only supported arguments are used with each command
 if args.command in COMMAND_ARGUMENTS:
     supported_args = COMMAND_ARGUMENTS[args.command]
-    all_possible_args = ['executable', 'name', 'icon', 'description', 'use_terminal']
+    all_possible_args = ['executable', 'name', 'icon', 'description', 'use-terminal']
     
     for arg in all_possible_args:
         if arg not in supported_args and hasattr(args, arg):
             arg_value = getattr(args, arg)
             # Skip if argument has default value (None for strings, False for booleans)
-            if arg_value is not None and not (arg == 'use_terminal' and arg_value is False):
-                parser.error(f"argument --{arg.replace('_', '-')}: not allowed with '{args.command}' command")
+            if arg_value is not None and not (arg == 'use-terminal' and arg_value is False):
+                parser.error(f"argument --{arg}: not allowed with '{args.command}' command")
     
 
 
@@ -98,7 +98,7 @@ if args.command == "install":
         name=args.name or "",
         icon=args.icon or "",
         description=args.description or "",
-        terminal=args.use_terminal
+        terminal=args.use-terminal
     )
 elif args.command == "list":
     list_apps()
