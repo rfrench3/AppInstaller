@@ -8,27 +8,6 @@ Created in 2025 by rfrench3 (TealMango) - https://github.com/rfrench3
 Licensed under the GNU GPLv3 only. See LICENSE file in the project root for full license information.
 """
 
-
-
-"""
-binaries logic:
-- ask user to open binary folder or binary zip/tar
-- unzip if necessary
-- open that folder in the app
-- tell the user to select:
-  - the executable
-  - the icon
-  - app name (autofill with directory name)
-  - more
-
-from there, make/install:
-- the icon
-- the .desktop file
-- more
-"""
-
-
-
 import sys
 import os
 import shutil
@@ -37,7 +16,6 @@ import shutil
 sys.path.insert(0, "/app/share/appinstaller") # flatpak path
 from program_file_locator import DATA_DIR
 from widget_manager import load_widget, load_message_box
-import appman
 
 #PySide6, Qt Designer UI files
 from PySide6.QtWidgets import (
@@ -48,14 +26,6 @@ from PySide6.QtGui import (QAction)
 
 # Edit the .ui file using Qt Designer
 ui_main = os.path.join(DATA_DIR, "main_window.ui")
-ui_installer = os.path.join(DATA_DIR, "installer.ui")
-
-
-
-# path to application folder. TODO: let the user change this
-apps_dir = os.path.expanduser("~/applications")
-
-os.makedirs(apps_dir, exist_ok=True)
 
 class MainWindow():
     def __init__(self, window): 
@@ -63,16 +33,14 @@ class MainWindow():
 
         # connect ui elements to code
         self.install_file = self.window.findChild(QAction,"install_file")
-        self.install_folder = self.window.findChild(QAction,"install_folder")
-
 
         # Connect actions to slots or functions
-        self.install_file.triggered.connect(self.method_select_file)
-        self.install_folder.triggered.connect(self.method_select_folder)
+        
+        
         
 
         
-    def method_select_file(self):
+
         """TODO:IMPLEMENT! If a recognized zip/tar/etc file is chosen, 
         unzip it and proceed with logic of folder method. 
         Much later, implement native/distrobox support for distro packages."""
@@ -126,7 +94,7 @@ class MainWindow():
 
         return 
 
-    def method_select_folder(self):
+    def method_select_folder(self): # discontinued in favor of integrating marcosnils bin program to install binaries 
         """Opens folder picker, moves chosen folder to apps_dir, 
         then opens window to continue "installation" of binary."""
         original_path = QFileDialog.getExistingDirectory(self.window, "Select Application Folder")
@@ -154,9 +122,7 @@ class MainWindow():
 
         return
 
-    def initiate_installer_interface(self,folder):
-        """TODO: opens the interface that instructs the user on manually "Installing" the binary."""
-
+    
 # Logic that loads the main window
 app = QApplication([])
 

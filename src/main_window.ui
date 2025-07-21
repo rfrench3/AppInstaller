@@ -24,7 +24,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Currently supported file formats are: extracted folder from zip/tar/etc, with more planned.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Currently in heavy development.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -44,24 +44,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuInstall_new_app">
-    <property name="title">
-     <string>Install new app</string>
-    </property>
-    <addaction name="install_file"/>
-    <addaction name="install_folder"/>
-   </widget>
-   <addaction name="menuInstall_new_app"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionentry_A">
