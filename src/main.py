@@ -37,14 +37,10 @@ class MainWindow():
 
         # Connect actions to slots or functions
         self.install_file.clicked.connect(self.method_select_file)
-        
-        
-
-        
-    def method_select_file(self):
-        """TODO:IMPLEMENT! If a recognized zip/tar/etc file is chosen, 
-        unzip it and proceed with logic of folder method. 
-        Much later, implement native/distrobox support for distro packages."""
+            
+    def method_select_file(self) -> str:
+        """Opens a QFileDialog window in the Downloads directory that lets the user pick from any supported file type.
+        Returns the path to the file, or an empty string if no file was chosen."""
 
         downloads_dir:str = str(os.environ.get("XDG_DOWNLOAD_DIR"))
         if not downloads_dir:
@@ -64,10 +60,11 @@ class MainWindow():
             "Binaries (*.zip *.tar *.tar.gz *.tgz *.tar.bz2 *.tbz2 *.tar.xz *.txz)"
             )
         )
-        if not original_path:
-            return  # no file selected
         
-        return 
+        if not original_path:
+            return ""  # no file selected
+        
+        return original_path
 
     
 # Logic that loads the main window
