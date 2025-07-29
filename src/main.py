@@ -18,6 +18,7 @@ from program_file_locator import DATA_DIR
 from widget_manager import load_widget, load_message_box
 
 
+
 #PySide6, Qt Designer UI files
 from PySide6.QtWidgets import (
     QApplication, QFileDialog,
@@ -37,6 +38,13 @@ class MainWindow():
 
         # Connect actions to slots or functions
         self.install_file.clicked.connect(self.method_select_file)
+
+
+        # make sure various file managers are available for use
+        self.flatpak = self.has_flatpak()
+        self.appimage = self.has_appimage()
+        self.distrobox = self.has_distrobox()
+
             
     def method_select_file(self) -> str:
         """Opens a QFileDialog window in the Downloads directory that lets the user pick from any supported file type.
@@ -52,19 +60,36 @@ class MainWindow():
             "Select Application File",
             downloads_dir,
             (
-            "All Supported Files (*.deb *.rpm *.flatpak *.appimage *.zip *.tar *.tar.gz *.tgz *.tar.bz2 *.tbz2 *.tar.xz *.txz);;"
+            "All Supported Files (*.deb *.rpm *.flatpak *.appimage *.tar *.tar.gz *.tgz *.tar.bz2 *.tbz2 *.tar.xz *.txz);;"
             "Debian Packages (*.deb);;"
             "RPM Packages (*.rpm);;"
             "Flatpak Packages (*.flatpak);;"
             "AppImages (*.appimage);;"
-            "Binaries (*.zip *.tar *.tar.gz *.tgz *.tar.bz2 *.tbz2 *.tar.xz *.txz)"
+            "Binaries (*.tar *.tar.gz *.tgz *.tar.bz2 *.tbz2 *.tar.xz *.txz)"
             )
         )
-        
+
         if not original_path:
             return ""  # no file selected
         
         return original_path
+    
+
+
+    def has_flatpak(self) -> bool:
+        return shutil.which("flatpak") is not None
+        
+    
+    def has_appimage(self) -> bool:
+        """All systems should be able to run AppImages, 
+        but if that ever changes this makes it easy to implement a proper check."""
+        return True
+
+    def has_distrobox(self) -> bool:
+        return shutil.which("distrobox") is not None
+    
+    def has_tar(self) -> bool:
+        return shutil.which("tar") is not None
 
     
 # Logic that loads the main window
