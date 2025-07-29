@@ -16,6 +16,7 @@ import shutil
 sys.path.insert(0, "/app/share/appinstaller") # flatpak path
 from program_file_locator import DATA_DIR
 from widget_manager import load_widget, load_message_box
+import subprocess
 
 
 
@@ -37,13 +38,7 @@ class MainWindow():
         self.install_file:QPushButton = self.window.findChild(QPushButton,"install_new_app")
 
         # Connect actions to slots or functions
-        self.install_file.clicked.connect(self.method_select_file)
-
-
-        # make sure various file managers are available for use
-        self.flatpak = self.has_flatpak()
-        self.appimage = self.has_appimage()
-        self.distrobox = self.has_distrobox()
+        self.install_file.clicked.connect(self.method_install_file)
 
             
     def method_select_file(self) -> str:
@@ -55,18 +50,47 @@ class MainWindow():
             # Fallback: use ~/Downloads if XDG_DOWNLOAD_DIR is not set
             downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
 
+        # Only let the user select a file type if they have the right program
+        file_types:str = ''
+        has_installer:list[str] = []
+
+        if self.has_distrobox():
+            file_types += "*.deb *.rpm "
+            has_installer.append("distrobox")
+        
+        if self.has_flatpak():
+            file_types += "*.flatpak "
+            has_installer.append("flatpak")
+
+        if self.has_appimage():
+            file_types += "*.appimage "
+            has_installer.append("appimage")
+
+        if self.has_tar():
+            file_types += "*.tar *.tar.gz *.tgz *.tar.bz2 *.tbz2 *.tar.xz *.txz "
+            has_installer.append("tar")
+
+        file_types = f"All Supported Files ({file_types.strip()})"
+
+        for program in has_installer:
+            match program:
+                case "distrobox":
+                    file_types += ";;Debian Packages (*.deb);;RPM Packages (*.rpm)"
+                case "flatpak":
+                    file_types += ";;Flatpak Packages (*.flatpak)"
+                case "appimage":
+                    file_types += ";;AppImages (*.appimage)"
+                case "tar":
+                    file_types += ";;Binaries (*.tar *.tar.gz *.tgz *.tar.bz2 *.tbz2 *.tar.xz *.txz)"
+                case _:
+                    raise TypeError
+
+
         original_path, _ = QFileDialog.getOpenFileName(
             self.window,
             "Select Application File",
             downloads_dir,
-            (
-            "All Supported Files (*.deb *.rpm *.flatpak *.appimage *.tar *.tar.gz *.tgz *.tar.bz2 *.tbz2 *.tar.xz *.txz);;"
-            "Debian Packages (*.deb);;"
-            "RPM Packages (*.rpm);;"
-            "Flatpak Packages (*.flatpak);;"
-            "AppImages (*.appimage);;"
-            "Binaries (*.tar *.tar.gz *.tgz *.tar.bz2 *.tbz2 *.tar.xz *.txz)"
-            )
+            file_types
         )
 
         if not original_path:
@@ -74,12 +98,126 @@ class MainWindow():
         
         return original_path
     
+    def method_install_file(self):
+        """Uses available app management programs to install the chosen application."""
+
+        file_path = self.method_select_file()
+        if not file_path:
+            return
+        
+        file_extension = (
+            "deb" if file_path.endswith("deb") else 
+            "rpm" if file_path.endswith("rpm") else 
+            "flatpak" if file_path.endswith("flatpak") else 
+            "appimage" if file_path.endswith("appimage") else 
+            "tar"
+            )
+        
+        def install_distrobox(file_path, extension) -> bool:
+            """Create the necessary distrobox if one doesn't exist, install the file in it, 
+            and then export the file to host."""
+            
+            if extension == "deb":
+                try:
+                    result = subprocess.run(
+                        [os.path.join(os.path.dirname(__file__), "install_distrobox.sh"), extension, file_path],
+                        check=True
+                    )
+                except subprocess.CalledProcessError as e:
+                    load_message_box(
+                        self.window,
+                        "Error",
+                        f"Failed to create install .deb file:\n{e}"
+                        )
+                    return False
+
+                
+
+            elif extension == "rpm":
+                try:
+                    result = subprocess.run(
+                        [os.path.join(os.path.dirname(__file__), "install_distrobox.sh"), extension, file_path],
+                        check=True
+                    )
+                except subprocess.CalledProcessError as e:
+                    load_message_box(
+                        self.window,
+                        "Error",
+                        f"Failed to create install .rpm file:\n{e}"
+                        )
+                    return False
+
+            else:
+                raise NotImplementedError
+
+
+
+
+
+            return True
+
+        def install_flatpak(file_path) -> bool:
+            """Install the flatpak file to the user, return True if successful."""
+            try:
+                subprocess.run(
+                    ["bash", "-c", f"flatpak install --user --assumeyes '{file_path}'"],
+                    check=True
+                )
+                load_message_box(
+                    self.window,
+                    "Success",
+                    "Flatpak package installed successfully."
+                )
+                return True
+            except subprocess.CalledProcessError as e:
+                load_message_box(
+                    self.window,
+                    "Error",
+                    f"Failed to install Flatpak package:\n{e}"
+                )
+                return False
+            
+
+
+
+
+        match file_extension:
+            case "deb":
+                install_distrobox(file_path,"deb")
+            case "rpm":
+                install_distrobox(file_path,"rpm")
+            case "flatpak":
+                install_flatpak(file_path)
+            case "appimage":
+                load_message_box(
+                    self.window,
+                    "Not Yet Implemented",
+                    "Installing tar binaries is not yet implemented!"
+                )
+            case "tar":
+                load_message_box(
+                    self.window,
+                    "Not Yet Implemented",
+                    "Installing tar binaries is not yet implemented!"
+                )
+            case _:
+                raise TypeError
+
+
+
+
+
+
+
+
+
+
+
 
 
     def has_flatpak(self) -> bool:
         return shutil.which("flatpak") is not None
         
-    
     def has_appimage(self) -> bool:
         """All systems should be able to run AppImages, 
         but if that ever changes this makes it easy to implement a proper check."""
