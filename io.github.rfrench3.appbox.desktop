@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=AppBox
 Comment=One-click install any app format
-Exec=appbox
+Exec="appbox gui qt"
 Icon=io.github.rfrench3.appbox
 Terminal=false
 Type=Application
