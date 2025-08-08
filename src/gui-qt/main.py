@@ -13,7 +13,7 @@ import os
 import shutil
 
 # locating other application files
-sys.path.insert(0, "/app/share/appinstaller") # flatpak path
+sys.path.insert(0, "/app/share/appbox") # flatpak path
 from program_file_locator import DATA_DIR
 from widget_manager import load_widget, load_message_box
 import subprocess
