@@ -25,9 +25,11 @@ modules:
         url: https://github.com/rfrench3/appbox.git 
         tag: extreme-refactor #USE A TAGGED RELEASE WHEN SUBMITTING THIS!
     build-commands:
-      - mkdir -p /app/share/appbox
+      - mkdir -p /app/share/appbox/core
+      - mkdir -p /app/share/appbox/gui_qt
       - install -Dm755 src/appbox.py /app/bin/appbox
-      - install -m644 src/gui_qt/*.ui /app/share/appbox/
+      - install -m644 src/gui_qt/* /app/share/appbox/gui_qt 
+      - install -m644 src/core.py /app/share/appbox
       - install -Dm644 io.github.rfrench3.appbox.svg /app/share/icons/hicolor/scalable/apps/io.github.rfrench3.appbox.svg
       - install -Dm644 io.github.rfrench3.appbox.png /app/share/icons/hicolor/128x128/apps/io.github.rfrench3.appbox.png
       - install -Dm644 io.github.rfrench3.appbox.metainfo.xml /app/share/metainfo/io.github.rfrench3.appbox.metainfo.xml
