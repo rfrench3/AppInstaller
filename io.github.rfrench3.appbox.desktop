@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=AppBox
 Comment=One-click install any app format
-Exec=AppBox
-Icon=io.github.rfrench3.AppBox
+Exec=appbox
+Icon=io.github.rfrench3.appbox
 Terminal=false
 Type=Application
 Categories=Utility;

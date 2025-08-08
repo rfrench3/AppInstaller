@@ -1,43 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <component type="desktop-application">
-  <id>io.github.rfrench3.AppInstaller</id>
-
-  <!-- Make sure the information in this xml matches your app! -->
-
-  <name translate="no">App Installer</name>
-  <summary>Cleanly install binaries</summary>
-  <icon type="stock">io.github.rfrench3.AppInstaller</icon>
-
+  <!--Created with jdAppStreamEdit 9.2-->
+  <id>io.github.rfrench3.appbox</id>
+  <name>AppBox</name>
+  <summary>Install any app on any distro</summary>
+  <developer id="io.github.rfrench3">
+    <name>Robert French</name>
+  </developer>
   <metadata_license>MIT</metadata_license>
   <project_license>GPL-3.0-only</project_license>
-
-  <developer id="io.github.rfrench3">
-    <name translate="no">Robert French</name>
-  </developer>
-
   <description>
-    <p>
-      
-    </p>
+    <p>This application integrates distrobox to allow you to install .debs and .rpms on any distro all in the same interface.</p>
   </description>
-
-  <branding>
-    <color type="primary" scheme_preference="light">#c875ff</color> <!-- These colors show up as a background in stores like Discover -->
-    <color type="primary" scheme_preference="dark">#380066</color>
-  </branding>
-
-  <content_rating type="oars-1.1" /> <!-- ensure the content rating is accurate -->
-
-  <url type="bugtracker">https://github.com/rfrench3/AppInstaller/issues</url> <!-- add various relevant URLs -->
-  <url type="vcs-browser">https://github.com/rfrench3/AppInstaller</url>
-
-  <launchable type="desktop-id">io.github.rfrench3.AppInstaller.desktop</launchable>
-
   <releases>
-    <release version="0.1" date="2025-06-23">
+    <release version="0.1" date="2000-01-01" type="stable">
       <description>
-        Description of the update features.
+        Initial release
       </description>
     </release>
   </releases>
+  <url type="bugtracker">https://github.com/rfrench3/appbox/issues</url>
+  <url type="vcs-browser">https://github.com/rfrench3/appbox</url>
+  <recommends>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </recommends>
+  <content_rating type="oars-1.1"/>
+  <launchable type="desktop-id">io.github.rfrench3.appbox.desktop</launchable>
+  <branding>
+    <color type="primary" scheme_preference="light">#c875ff</color>
+    <color type="primary" scheme_preference="dark">#380066</color>
+  </branding>
 </component>

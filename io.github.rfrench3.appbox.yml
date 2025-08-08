@@ -4,7 +4,7 @@ runtime-version: '6.9'
 sdk: org.kde.Sdk
 base: io.qt.PySide.BaseApp
 base-version: '6.9'
-command: AppBox
+command: appbox
 finish-args:
   - --share=ipc
   - --socket=wayland
@@ -18,19 +18,19 @@ build-options:
 cleanup-commands:
   - /app/cleanup-BaseApp.sh
 modules:
-  - name: AppInstaller
+  - name: appbox
     buildsystem: simple
     sources:
       - type: git
-        url: https://github.com/rfrench3/AppInstaller.git 
+        url: https://github.com/rfrench3/appbox.git 
         tag: main #USE A TAGGED RELEASE WHEN SUBMITTING THIS!
     build-commands:
-      - mkdir -p /app/share/AppInstaller
-      - install -Dm755 src/main.py /app/bin/AppInstaller
-      - install -m644 src/*.ui /app/share/AppInstaller/
-      - install -Dm644 io.github.rfrench3.AppInstaller.svg /app/share/icons/hicolor/scalable/apps/io.github.rfrench3.AppInstaller.svg
-      - install -Dm644 io.github.rfrench3.AppInstaller.png /app/share/icons/hicolor/128x128/apps/io.github.rfrench3.AppInstaller.png
-      - install -Dm644 io.github.rfrench3.AppInstaller.metainfo.xml /app/share/metainfo/io.github.rfrench3.AppInstaller.metainfo.xml
-      - desktop-file-edit --set-key=Exec --set-value=AppInstaller io.github.rfrench3.AppInstaller.desktop
-      - install -Dm644 io.github.rfrench3.AppInstaller.desktop /app/share/applications/io.github.rfrench3.AppInstaller.desktop
+      - mkdir -p /app/share/appbox
+      - install -Dm755 src/main.py /app/bin/appbox
+      - install -m644 src/*.ui /app/share/appbox/
+      - install -Dm644 io.github.rfrench3.appbox.svg /app/share/icons/hicolor/scalable/apps/io.github.rfrench3.appbox.svg
+      - install -Dm644 io.github.rfrench3.appbox.png /app/share/icons/hicolor/128x128/apps/io.github.rfrench3.appbox.png
+      - install -Dm644 io.github.rfrench3.appbox.metainfo.xml /app/share/metainfo/io.github.rfrench3.appbox.metainfo.xml
+      - desktop-file-edit --set-key=Exec --set-value=appbox io.github.rfrench3.appbox.desktop
+      - install -Dm644 io.github.rfrench3.appbox.desktop /app/share/applications/io.github.rfrench3.appbox.desktop
 
