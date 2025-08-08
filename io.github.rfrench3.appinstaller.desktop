@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=App Installer
-Comment=Install AppImages and binaries
-Exec=AppInstaller
-Icon=io.github.rfrench3.AppInstaller
-Terminal=false
-Type=Application
-Categories=Utility;
-StartupNotify=true
