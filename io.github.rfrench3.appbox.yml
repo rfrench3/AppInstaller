@@ -19,18 +19,18 @@ cleanup-commands:
   - /app/cleanup-BaseApp.sh
 modules:
   - name: appbox
-    buildsystem: simple
+    buildsystem: simple # consider changing to python to utilize pyproject.toml
     sources:
       - type: git
         url: https://github.com/rfrench3/appbox.git 
-        tag: main #USE A TAGGED RELEASE WHEN SUBMITTING THIS!
+        tag: extreme-refactor #USE A TAGGED RELEASE WHEN SUBMITTING THIS!
     build-commands:
       - mkdir -p /app/share/appbox
-      - install -Dm755 src/main.py /app/bin/appbox
-      - install -m644 src/*.ui /app/share/appbox/
+      - install -Dm755 src/appbox.py /app/bin/appbox
+      - install -m644 src/gui_qt/*.ui /app/share/appbox/
       - install -Dm644 io.github.rfrench3.appbox.svg /app/share/icons/hicolor/scalable/apps/io.github.rfrench3.appbox.svg
       - install -Dm644 io.github.rfrench3.appbox.png /app/share/icons/hicolor/128x128/apps/io.github.rfrench3.appbox.png
       - install -Dm644 io.github.rfrench3.appbox.metainfo.xml /app/share/metainfo/io.github.rfrench3.appbox.metainfo.xml
-      - desktop-file-edit --set-key=Exec --set-value="appbox --gui-qt" io.github.rfrench3.appbox.desktop
+      - desktop-file-edit --set-key=Exec --set-value="appbox gui gt" io.github.rfrench3.appbox.desktop
       - install -Dm644 io.github.rfrench3.appbox.desktop /app/share/applications/io.github.rfrench3.appbox.desktop
 

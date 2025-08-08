@@ -7,11 +7,12 @@ Source code - https://github.com/rfrench3/appbox
 
 Licensed under the GNU GPLv3 only. See LICENSE file in the project root for full license information.
 """
-
+import sys
 import argparse
 import core
 import gui_qt
 
+sys.path.insert(0, "/app/share/appbox")
 
 def run_gui_qt():
     gui_qt.main()
