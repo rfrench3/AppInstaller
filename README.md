@@ -1,6 +1,6 @@
-# AppInstaller
+# AppBox
 
-AppInstaller is an application that allows users to point-and-click install any kind of application file by integrating various popular programs for each format. It integrates distrobox for distro-specific packages, uses flatpak for flatpak packages, (uncertain) uses Gearlever for appimages, and (uncertain) uses marcosnils/bin for binaries.
+AppBox is a heavily in-development application designed to make it a breeze to install apps packaged with any popular format.
 
 <hr>
 
@@ -15,7 +15,7 @@ Select file:
 
 Install files by interfacing with:
 
-- [ ] rpm/deb: distrobox
+- [ ] rpm/deb: distrobox (priority)
 - [ ] appimage: gearlever, if possible
 - [ ] flatpak: flatpak
 - [ ] tars: marcosnils/bin fork or upstream PR that accepts local files and not just websites
