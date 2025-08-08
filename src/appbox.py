@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
+"""
+AppBox
+
+Created in 2025 by rfrench3 (TealMango) - https://github.com/rfrench3
+Source code - https://github.com/rfrench3/appbox
+
+Licensed under the GNU GPLv3 only. See LICENSE file in the project root for full license information.
+"""
 
 import argparse
+import core
+import gui_qt
+
 
 def run_gui_qt():
-    print("[Placeholder] Running Qt GUI...")
-
-def print_help():
-    print("help information")
-
-def install(file_path):
-    print("[Placeholder] Running install...")
-
-def uninstall(program_name):
-    print("[Placeholder] Running uninstall...")
-
-def list_apps():
-    print("[Placeholder] List of apps...")
-
+    gui_qt.main()
 
 def main():
     parser = argparse.ArgumentParser(description="AppBox CLI and GUI")
@@ -40,7 +38,7 @@ def main():
     args = parser.parse_args()
 
     if args.command is None:
-        print_help()
+        core.print_help()
 
     elif args.command == "gui":
         if args.type == "qt":
@@ -49,20 +47,16 @@ def main():
             print("The only available GUIs are:\n qt")
 
     elif args.command == "install":
-        install(args.file_path)
+        core.install(args.file_path)
 
     elif args.command == "uninstall":
-        uninstall(args.program_name)
+        core.uninstall(args.program_name)
 
     elif args.command == "list":
-        list_apps()
+        core.list_apps()
 
     else:
         print("Unrecognized command.")
-
-
-
-
 
 if __name__ == "__main__":
     main()
