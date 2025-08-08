@@ -31,6 +31,6 @@ modules:
       - install -Dm644 io.github.rfrench3.appbox.svg /app/share/icons/hicolor/scalable/apps/io.github.rfrench3.appbox.svg
       - install -Dm644 io.github.rfrench3.appbox.png /app/share/icons/hicolor/128x128/apps/io.github.rfrench3.appbox.png
       - install -Dm644 io.github.rfrench3.appbox.metainfo.xml /app/share/metainfo/io.github.rfrench3.appbox.metainfo.xml
-      - desktop-file-edit --set-key=Exec --set-value=appbox io.github.rfrench3.appbox.desktop
+      - desktop-file-edit --set-key=Exec --set-value="appbox --gui-qt" io.github.rfrench3.appbox.desktop
       - install -Dm644 io.github.rfrench3.appbox.desktop /app/share/applications/io.github.rfrench3.appbox.desktop
 
