@@ -20,7 +20,7 @@ appbox = "src.appbox:main"  # Adjust if your entry point function is named diffe
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-packages = ["core", "gui_qt", "cli"]
+packages = ["core", "gui_qt"]
 include-package-data = true
 
 [tool.setuptools.package-data]
